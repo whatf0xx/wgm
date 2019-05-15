@@ -22,10 +22,9 @@ line_x = [[0]]
 line_y = [[-1]]
 
 #%% calculate line gradient for beam
-n = 7
+n = 8
 theta = [sp.pi/n]
 m = [sp.tan(theta[0])]
-phi = [0]
 c = [-1]
 #%% begin loop to draw lines
 p = 0
@@ -43,11 +42,9 @@ while(p<n):
     q = q-1
     plt.plot(line_x[p], line_y[p])
     
-    phi[p] = sp.arctan2(-line_x[p][q], line_y[p][q])
-    theta.append(sp.pi-sp.arctan(m[p])+2*sp.arctan2(line_y[p][q], line_x[p][q]))
-    phi.append(0)
-    m.append((sp.sin(2*phi[p])-m[p]*sp.cos(2*phi[p]))/(sp.cos(2*phi[p])+m[p]*sp.sin(2*phi[p])))
-    c.append(line_y[p][q]-m[p]*line_x[p][q])
+    theta.append(sp.pi-theta[p]+2*sp.arctan2(line_y[p][q], line_x[p][q]))
+    m.append(sp.tan(theta[p+1]))
+    c.append(line_y[p][q]-m[p+1]*line_x[p][q])
     
     line_x.append([line_x[p][q]])
     line_y.append([line_y[p][q]])
