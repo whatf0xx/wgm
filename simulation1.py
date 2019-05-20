@@ -13,8 +13,8 @@ import seaborn as sns
 
 #%% define variables and functions
     #grid
-x = sp.linspace(-2, 2, 1000)
-y = sp.linspace(-2, 2, 1000)
+x = sp.linspace(-2, 2, 100)
+y = sp.linspace(-2, 2, 100)
 X, Y = sp.meshgrid(x, y)
 
     #convert to plane polars
