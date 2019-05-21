@@ -21,7 +21,7 @@ for i in range(n0, n):
 
 H = [spl.hankel1(n0, x)] #Hankel function, order 0; argument x
 for j in range(n0, n):
-    H.append(spl.hankel1(j+1, x)) #Create Bessel functions, order 1-->n; argument x
+    H.append(spl.hankel1(j+1, x)) #Create Hankel functions, order 1-->n; argument x
 
 #%% plots
 plt.subplot(2, 1, 1) #Bessel functions
