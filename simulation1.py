@@ -7,7 +7,6 @@ Created on Sat May 18 18:23:48 2019
 #%% libraries
 import scipy as sp
 import scipy.special as spl
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 #%% define variables and functions
@@ -26,9 +25,9 @@ c_mat = 3500 #speed of sound in barrier material/outside cavity (m/s). Here the 
 n = c_mat/c_air #cavity refractive index
 a = 1 #arbitrary cavity radius (m)
 m = 14
-f_trial = 6000 #frequency of sound waves (Hz)
+f_trial = 279 #frequency of sound waves (Hz)
 omega_trial = f_trial*2*sp.pi
-k_trial = omega_trial/c_mat #wavenumber (/m)
+k_trial = omega_trial/c_mat #wavenumber (/m) (here, 0.5 used)
 k_guess = k_trial #so the original value can be compared to the computed one
 done = False
 counter = 0

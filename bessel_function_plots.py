@@ -10,10 +10,10 @@ import scipy.special as spl
 import matplotlib.pyplot as plt
 
 #%% create axes
-x = sp.linspace(1, 15, 5000) #Note for higher order Hankel functions exclude x values close to the origin
+x = sp.linspace(0.1, 2, 5000) #Note for higher order Hankel functions exclude x values close to the origin
 n0 = 3 #Lower bound to generate
 n = 3 #Upper bound to generate
-a = 5 #Arbitrary constant corresponding to refractive index
+a = 10.2 #Arbitrary constant corresponding to refractive index
 
 J = [spl.jv(n0, x)] #Bessel function, order 0; argument x
 for i in range(n0, n):
