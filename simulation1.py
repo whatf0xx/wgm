@@ -58,19 +58,16 @@ wgm_phi = sp.cos(m*phi) + sp.sin(m*phi)*sp.sqrt(-1)
 heavymap = sp.heaviside((r/a)-1, 1)
 
     #draw on circle
-x_circ = sp.linspace(-a, a, 1000)
-y_circ_pos = sp.sqrt(a**2-x_circ**2)
-y_circ_neg = -sp.sqrt(a**2-x_circ**2)
+heavyp = sp.heaviside(r-0.995, 10)
+heavyn = sp.heaviside(1.005-r, 10)
+circle = heavyp*heavyn
 
 #%% calculate values
 wgm = sp.real(wgm_phi*int_wgm_rho*(1-heavymap) + B*wgm_phi*ext_wgm_rho*heavymap)
 
 #%% make heatmap of function
-g=sns.heatmap(wgm)
+g=sns.heatmap(wgm, cmap="RdBu_r")
+#sns.heatmap(circle)
 g.set_xlabel("X")
 g.set_ylabel("Y")
-#sns.regplot(x_circ, y_circ_pos, scatter=False, color='green')
-#sns.regplot(x_circ, y_circ_neg, scatter=False, color='green')
-#plt.plot(x_circ, y_circ_pos, color='green')
-#plt.plot(x_circ, y_circ_neg, color='green')
-#plt.show()
+
