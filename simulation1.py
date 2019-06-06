@@ -24,7 +24,7 @@ c_air = 343 #speed of sound in air (m/s)
 c_mat = 3500 #speed of sound in barrier material/outside cavity (m/s). Here the value used is for concrete
 n = c_mat/c_air #cavity refractive index
 a = 1 #arbitrary cavity radius (m)
-m = 14
+m = 48
 f_trial = 279 #frequency of sound waves (Hz)
 omega_trial = f_trial*2*sp.pi
 k_trial = omega_trial/c_mat #wavenumber (/m) (here, 0.5 used)
@@ -66,8 +66,9 @@ circle = heavyp*heavyn
 wgm = sp.real(wgm_phi*int_wgm_rho*(1-heavymap) + B*wgm_phi*ext_wgm_rho*heavymap)
 
 #%% make heatmap of function
-g=sns.heatmap(wgm, cmap="RdBu_r")
+g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=False, yticklabels=False)
 #sns.heatmap(circle)
+g.set_title("k = %.3f+%.3fi"% (k.real, k.imag))
 g.set_xlabel("X")
 g.set_ylabel("Y")
 
