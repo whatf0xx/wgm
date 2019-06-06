@@ -10,34 +10,24 @@ import scipy.special as spl
 import matplotlib.pyplot as plt
 
 #%% create axes
-x = sp.linspace(0.1, 2, 5000) #Note for higher order Hankel functions exclude x values close to the origin
-n0 = 3 #Lower bound to generate
-n = 3 #Upper bound to generate
+x = sp.linspace(1, 10, 5000) #Note for higher order Hankel functions exclude x values close to the origin
+n0 = 48 #Lower bound to generate
+n = 49 #Upper bound to generate
 a = 10.2 #Arbitrary constant corresponding to refractive index
 
-J = [spl.jv(n0, x)] #Bessel function, order 0; argument x
+J = [spl.jv(n0, x)] #Bessel function, order n0; argument x
+H = [spl.hankel1(n0, x)] #Hankel function, order n0; argument x
+Ja = [spl.jv(n0, x*a)] #Bessel function, order n0; argument a*x
+Jdash = [spl.jvp(n0, x, n=1)] #Bessel function first derivative, order n0; argument x
+Hdash = [spl.h1vp(n0, x, n=1)] #Hankel function first derivative, order n0; argument x
+Jadash = [spl.jvp(n0, x*a, n=1)] #Bessel function first derivative, order 0; argument a*x
 for i in range(n0, n):
-    J.append(spl.jv(i+1, x)) #Create Bessel functions, order 1-->n; argument x
-
-Jdash = [spl.jvp(n0, x, n=1)] #Bessel function first derivative, order 0; argument x
-for i in range(n0, n):
-    Jdash.append(spl.jvp(i+1, x, n=1)) #Create Bessel first derivatives, order 1-->n; argument x
-    
-Ja = [spl.jv(n0, x*a)] #Bessel function, order 0; argument x
-for i in range(n0, n):
-    J.append(spl.jv(i+1, x*a)) #Create Bessel functions, order 1-->n; argument x
-
-Jadash = [spl.jvp(n0, x*a, n=1)] #Bessel function first derivative, order 0; argument x
-for i in range(n0, n):
-    Jdash.append(spl.jvp(i+1, x*a, n=1)) #Create Bessel first derivatives, order 1-->n; argument x
-    
-H = [spl.hankel1(n0, x)] #Hankel function, order 0; argument x
-for i in range(n0, n):
-    H.append(spl.hankel1(i+1, x)) #Create Hankel functions, order 1-->n; argument x
-
-Hdash = [spl.h1vp(n0, x, n=1)] #Hankel function first derivative, order 0; argument x
-for i in range(n0, n):
-    Hdash.append(spl.h1vp(i+1, x, n=1)) #Create Hankel first derivatives, order 1-->n; argument x
+    J.append(spl.jv(i+1, x)) #Create Bessel functions, order n0+1-->n; argument x
+    H.append(spl.hankel1(i+1, x)) #Create Hankel functions, order n0+1-->n; argument x
+    Ja.append(spl.jv(i+1, x*a)) #Create Bessel functions, order n0+1-->n; argument a*x
+    Jdash.append(spl.jvp(i+1, x, n=1)) #Create Bessel first derivatives, order n0+1-->n; argument x
+    Hdash.append(spl.h1vp(i+1, x, n=1)) #Create Hankel first derivatives, order n0+1-->n; argument x
+    Jadash.append(spl.jvp(i+1, x*a, n=1)) #Create Bessel first derivatives, order 1-->n; argument a*x
 
 eigroot = [Jadash[0]/Ja[0] - Hdash[0]/(a*H[0])]
 for i in range(0, n-n0):
