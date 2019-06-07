@@ -25,7 +25,7 @@ c_mat = 3500 #speed of sound in barrier material/outside cavity (m/s). Here the 
 n = c_mat/c_air #cavity refractive index
 a = 1 #arbitrary cavity radius (m)
 m = 48
-f_trial = 279 #frequency of sound waves (Hz)
+f_trial = 2901 #frequency of sound waves (Hz)
 omega_trial = f_trial*2*sp.pi
 k_trial = omega_trial/c_mat #wavenumber (/m) (here, 0.5 used)
 k_guess = k_trial #so the original value can be compared to the computed one
@@ -45,7 +45,7 @@ while(done==False):
     k_prev = k_trial
     k_trial = k_trial - NRfunc/NRfuncdash
     counter += 1
-    if(abs(k_trial-k_prev) < 0.01 and counter>5):
+    if(abs(k_trial-k_prev) < 0.0001):
         done=True
 
 k = k_trial #the computed eigenfrequency, corresponding to the first root
@@ -71,4 +71,3 @@ g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=False, yticklabels=False)
 g.set_title("k = %.3f+%.3fi"% (k.real, k.imag))
 g.set_xlabel("X")
 g.set_ylabel("Y")
-
