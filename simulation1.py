@@ -7,6 +7,7 @@ Created on Sat May 18 18:23:48 2019
 #%% libraries
 import scipy as sp
 import scipy.special as spl
+import matplotlib as mpl
 import seaborn as sns
 
 #%% define variables and functions
@@ -58,8 +59,8 @@ wgm_phi = sp.cos(m*phi) + sp.sin(m*phi)*sp.sqrt(-1)
 heavymap = sp.heaviside((r/a)-1, 1)
 
     #draw on circle
-heavyp = sp.heaviside(r-0.995, 10)
-heavyn = sp.heaviside(1.005-r, 10)
+heavyp = sp.heaviside(r-0.995*a, 1)
+heavyn = sp.heaviside(1.005*a-r, 1)
 circle = heavyp*heavyn
 
 #%% calculate values
@@ -67,7 +68,9 @@ wgm = sp.real(wgm_phi*int_wgm_rho*(1-heavymap) + B*wgm_phi*ext_wgm_rho*heavymap)
 
 #%% make heatmap of function
 g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=False, yticklabels=False)
-#sns.heatmap(circle)
+circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.01), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
+cmap = mpl.colors.ListedColormap(circle_palette)
+c=sns.heatmap(circle, cmap=cmap, xticklabels=False, yticklabels=False)
 g.set_title("k = %.3f+%.3fi"% (k.real, k.imag))
 g.set_xlabel("X")
 g.set_ylabel("Y")
