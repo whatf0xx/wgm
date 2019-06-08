@@ -9,6 +9,7 @@ import scipy as sp
 import scipy.special as spl
 import matplotlib as mpl
 import seaborn as sns
+import pandas as pd
 
 #%% define variables and functions
     #grid
@@ -61,16 +62,19 @@ heavymap = sp.heaviside((r/a)-1, 1)
     #draw on circle
 heavyp = sp.heaviside(r-0.995*a, 1)
 heavyn = sp.heaviside(1.005*a-r, 1)
-circle = heavyp*heavyn
+xlab = sp.round_(x, 2)
+ylab = sp.round_(y, 2)
+circle = pd.DataFrame(heavyp*heavyn, index=ylab, columns=xlab)
 
 #%% calculate values
 wgm = sp.real(wgm_phi*int_wgm_rho*(1-heavymap) + B*wgm_phi*ext_wgm_rho*heavymap)
+data= pd.DataFrame(wgm, index=ylab, columns=xlab)
 
 #%% make heatmap of function
-g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=False, yticklabels=False)
+g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=True, yticklabels=True, square=True)
 circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.01), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
 cmap = mpl.colors.ListedColormap(circle_palette)
-c=sns.heatmap(circle, cmap=cmap, xticklabels=False, yticklabels=False)
-g.set_title("k = %.3f+%.3fi"% (k.real, k.imag))
-g.set_xlabel("X")
-g.set_ylabel("Y")
+c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100)
+g.set_title("m = %d; k = %.3f+%.3fi"% (m, k.real, k.imag))
+g.set_xlabel("X (m)")
+g.set_ylabel("Y (m)")
