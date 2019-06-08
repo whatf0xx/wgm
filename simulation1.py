@@ -72,7 +72,7 @@ data= pd.DataFrame(wgm, index=ylab, columns=xlab)
 
 #%% make heatmap of function
 g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=True, yticklabels=True, square=True)
-circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.01), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
+circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.001), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
 cmap = mpl.colors.ListedColormap(circle_palette)
 c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100)
 g.set_title("m = %d; k = %.3f+%.3fi"% (m, k.real, k.imag))
