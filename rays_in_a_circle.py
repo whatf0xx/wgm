@@ -22,7 +22,7 @@ line_x = [[0]]
 line_y = [[-1]]
 
 #%% calculate line gradient for beam
-n = 7
+n = 13
 theta = [sp.pi/n]
 m = [sp.tan(theta[0])]
 c = [-1]
