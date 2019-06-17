@@ -23,11 +23,11 @@ phi = sp.arctan2(Y, X)
 
     #set constants
 c_air = 343 #speed of sound in air (m/s)
-c_mat = 3500 #speed of sound in barrier material/outside cavity (m/s). Here the value used is for concrete
+c_mat = 3000 #speed of sound in barrier material/outside cavity (m/s). Here the value used is for concrete
 n = c_mat/c_air #cavity refractive index
-a = 1 #arbitrary cavity radius (m)
-m = 48
-k_trial = 6 #wavenumber (/m)
+a = 0.57 #arbitrary cavity radius (m)
+m = 16
+k_trial = 4 #wavenumber (/m)
 k_guess = k_trial #so the original value can be compared to the computed one
 done = False
 counter = 0
@@ -74,6 +74,6 @@ g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=True, yticklabels=True, square=Tru
 circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.001), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
 cmap = mpl.colors.ListedColormap(circle_palette)
 c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100, cbar=False)
-g.set_title("m = %d; k = %.3f+%.3fi; f = %.1f"% (m, k.real, k.imag, f))
+g.set_title("m = %d; k = %.3f+%.3fi /m; f = %.1f Hz"% (m, k.real, k.imag, f))
 g.set_xlabel("X (m)")
 g.set_ylabel("Y (m)")

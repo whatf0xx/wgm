@@ -10,10 +10,11 @@ import scipy.special as spl
 import matplotlib.pyplot as plt
 
 #%% create axes
-x = sp.linspace(1, 10, 5000) #Note for higher order Hankel functions exclude x values close to the origin
-n0 = 48 #Lower bound to generate
-n = 49 #Upper bound to generate
-a = 10.2 #Arbitrary constant corresponding to refractive index
+x1 = 5
+x = sp.linspace(0, x1, 5000) #Note for higher order Hankel functions exclude x values close to the origin
+n0 = 15 #Lower bound to generate
+n = 17 #Upper bound to generate
+a = 8.7 #Arbitrary constant corresponding to refractive index
 
 J = [spl.jv(n0, x)] #Bessel function, order n0; argument x
 H = [spl.hankel1(n0, x)] #Hankel function, order n0; argument x
@@ -37,9 +38,10 @@ plt.subplot(3, 1, 1) #Bessel functions
 plt.title("Bessel functions")
 plt.grid(True)
 plt.vlines(0, -0.3, 0.3)
-plt.hlines(0, -1, 15)
+plt.hlines(0, -1, x1)
 for i in range(n0, n+1):
     plt.plot(x, J[i-n0], label="n=%d"% i)
+plt.ylim([-1, 1])
 plt.legend()
     
 plt.subplot(3, 1, 2) #Hankel functions
@@ -47,9 +49,10 @@ plt.title("Hankel functions of the first kind")
 plt.legend()
 plt.grid(True)
 plt.vlines(0, -0.3, 0.3)
-plt.hlines(0, -1, 15)
+plt.hlines(0, -1, x1)
 for i in range(n0, n+1):
     plt.plot(x, sp.real(H[i-n0]), label="n=%d"% i)
+plt.ylim([-1, 1])
 plt.legend()
 
 plt.subplot(3, 1, 3) #Eigenfrequency solutions
@@ -57,9 +60,10 @@ plt.title("Newton-Raphson solutions for eigenmodes")
 plt.legend()
 plt.grid(True)
 plt.vlines(0, -0.3, 0.3)
-plt.hlines(0, -1, 15)
+plt.hlines(0, -1, x1)
 for i in range(n0, n+1):
     plt.plot(x, sp.real(eigroot[i-n0]), label="n=%d"% i)
+plt.ylim([-1, 1])
 plt.legend()
 
 plt.tight_layout()
