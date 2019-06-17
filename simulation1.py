@@ -13,8 +13,8 @@ import pandas as pd
 
 #%% define variables and functions
     #grid
-x = sp.linspace(-1.5, 1.5, 1000)
-y = sp.linspace(-1.5, 1.5, 1000)
+x = sp.linspace(-1, 1, 1000)
+y = sp.linspace(-1, 1, 1000)
 X, Y = sp.meshgrid(x, y)
 
     #convert to plane polars
@@ -27,9 +27,7 @@ c_mat = 3500 #speed of sound in barrier material/outside cavity (m/s). Here the 
 n = c_mat/c_air #cavity refractive index
 a = 1 #arbitrary cavity radius (m)
 m = 48
-f_trial = 2901 #frequency of sound waves (Hz)
-omega_trial = f_trial*2*sp.pi
-k_trial = omega_trial/c_mat #wavenumber (/m) (here, 0.5 used)
+k_trial = 6 #wavenumber (/m)
 k_guess = k_trial #so the original value can be compared to the computed one
 done = False
 counter = 0
@@ -51,6 +49,7 @@ while(done==False):
         done=True
 
 k = k_trial #the computed eigenfrequency, corresponding to the first root
+f = k.real*c_air/2/sp.pi
 
     #evaluate functions
 int_wgm_rho = spl.jv(m, n*r*k)
@@ -74,7 +73,7 @@ data= pd.DataFrame(wgm, index=ylab, columns=xlab)
 g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=True, yticklabels=True, square=True)
 circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.001), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
 cmap = mpl.colors.ListedColormap(circle_palette)
-c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100)
-g.set_title("m = %d; k = %.3f+%.3fi"% (m, k.real, k.imag))
+c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100, cbar=False)
+g.set_title("m = %d; k = %.3f+%.3fi; f = %.1f"% (m, k.real, k.imag, f))
 g.set_xlabel("X (m)")
 g.set_ylabel("Y (m)")
