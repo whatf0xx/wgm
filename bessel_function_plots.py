@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 #%% create axes
 x1 = 5
 x = sp.linspace(0, x1, 5000) #Note for higher order Hankel functions exclude x values close to the origin
-n0 = 15 #Lower bound to generate
-n = 17 #Upper bound to generate
+n0 = 6 #Lower bound to generate
+n = 8 #Upper bound to generate
 a = 8.7 #Arbitrary constant corresponding to refractive index
 
 J = [spl.jv(n0, x)] #Bessel function, order n0; argument x
@@ -40,8 +40,8 @@ plt.grid(True)
 plt.vlines(0, -0.3, 0.3)
 plt.hlines(0, -1, x1)
 for i in range(n0, n+1):
-    plt.plot(x, J[i-n0], label="n=%d"% i)
-plt.ylim([-1, 1])
+    plt.plot(x, J[i-n0], label="m = %d"% i)
+plt.ylim([-.5, .5])
 plt.legend()
     
 plt.subplot(3, 1, 2) #Hankel functions
@@ -59,11 +59,15 @@ plt.subplot(3, 1, 3) #Eigenfrequency solutions
 plt.title("Newton-Raphson solutions for eigenmodes")
 plt.legend()
 plt.grid(True)
+utol = 100
+ltol = -100
 plt.vlines(0, -0.3, 0.3)
 plt.hlines(0, -1, x1)
 for i in range(n0, n+1):
-    plt.plot(x, sp.real(eigroot[i-n0]), label="n=%d"% i)
-plt.ylim([-1, 1])
+    eigroot[i-n0][eigroot[i-n0]>utol] = sp.nan
+    eigroot[i-n0][eigroot[i-n0]<ltol] = sp.nan
+    plt.plot(x, sp.real(eigroot[i-n0]), label="m = %d"% i)
+plt.ylim([-2, 2])
 plt.legend()
 
 plt.tight_layout()

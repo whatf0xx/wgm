@@ -26,8 +26,8 @@ c_air = 343 #speed of sound in air (m/s)
 c_mat = 3000 #speed of sound in barrier material/outside cavity (m/s). Here the value used is for concrete
 n = c_mat/c_air #cavity refractive index
 a = 0.57 #arbitrary cavity radius (m)
-m = 8
-k_trial = 2.4 #wavenumber (/m)
+m = 9
+k_trial = 2.7 #wavenumber (/m)
 k_guess = k_trial #so the original value can be compared to the computed one
 done = False
 counter = 0
@@ -67,10 +67,9 @@ circle = pd.DataFrame(heavyp*heavyn, index=ylab, columns=xlab)
 
 #%% calculate values
 wgm = sp.real(wgm_phi*int_wgm_rho*(1-heavymap) + B*wgm_phi*ext_wgm_rho*heavymap)
-data= pd.DataFrame(wgm, index=ylab, columns=xlab)
 
 #%% make heatmap of function
-g=sns.heatmap(wgm, cmap="RdBu_r", xticklabels=True, yticklabels=True, square=True)
+g=sns.heatmap(wgm, cmap="RdBu_r", square=True)
 circle_palette = [(0xFF/0xFF, 0xFF/0xFF, 0xFF/0xFF, 0.001), (0xD1/0xFF, 0xEC/0xFF, 0x9C/0xFF, 1)]
 cmap = mpl.colors.ListedColormap(circle_palette)
 c=sns.heatmap(circle, cmap=cmap, xticklabels=100, yticklabels=100, cbar=False)
