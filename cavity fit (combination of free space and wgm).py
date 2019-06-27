@@ -2,19 +2,24 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-d3, a3 = sp.loadtxt("cavity.txt", unpack=True)
+d3, a3 = sp.loadtxt("cavity measurements.txt", unpack=True)
 dist3 = d3/100
 
 plt.plot(dist3, a3, 'bx')
-xps = sp.linspace(0.36, 1.1, 101)
+n = 10001
+xps = sp.linspace(0.36, 1.1, n)
 def amp(x, a, b, c, d, e):
     return a/(x-b)**2 + c/(x-d) + e
 
-fit = curve_fit(amp, dist3, a3, p0=[-1,-1,1,1,1])
+fit = curve_fit(amp, dist3, a3, p0=[1,0,1,0,0])
 
 data_fit = amp(xps, *fit[0])
 plt.xlabel('distance/m')
 plt.ylabel('amplitude/V')
+utol = 2.5
+ltol = 0
+data_fit[data_fit>utol] = sp.nan
+data_fit[data_fit<ltol] = sp.nan
 plt.plot(xps, data_fit)
 plt.plot(dist3, a3, 'x')
 plt.grid()
